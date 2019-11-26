@@ -1,3 +1,4 @@
+guessinggame : 
 	touch README.md
 	echo "Title of this project is : Peer-graded Assignment: Bash, Make, Git, and GitHub" > README.md
 	echo "Date make was run at : " >> README.md

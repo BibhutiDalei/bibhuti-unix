@@ -1,29 +1,29 @@
 #!/bin/bash
 
-#reads the current directory from user
-usr_wc_out=($(ls -p | grep -v / | wc))
-usr_answer=${usr_wc_out[0]}
+#Get the number of files available in current directory
+numberOfFilesCount=$(ls | wc -l)
 
-guess_number_of_files () {
-read -p "Guess how many number of files in this curent directory ? : " fileCount
-if [ $fileCount -eq $fileCount 2>/dev/null ]
+#Validate the user input with the actual file count
+function validate_user_input() {
+
+  read user_input
+
+  if [[ $user_input -eq $numberOfFilesCount ]]
+   then
+     echo "Congratulations!!! Your guess is correct."
+   elif [[ $user_input -gt $numberOfFilesCount ]]
     then
-        if [[ $fileCount -lt $usr_answer ]]
-            then
-                echo "Guess is Too low"
-                guess_number_of_files
-        elif [[ $fileCount -gt $usr_answer ]]
-            then
-                echo "Guess is Too high"
-                guess_number_of_files
-        elif [[ $fileCount -eq $usr_answer ]]
-            then
-                echo "Congratulations!!! Your Guess is correct. There are "$usr_answer" number of files in this current directory."
-        fi
-    else
-        echo "Input is not valid, try again with an integer value"
-        guess_number_of_files
-fi
+      echo "Your guess is Too high. Please try gaian."
+      validate_user_input
+   elif [[ $user_input -lt $numberOfFilesCount ]]
+    then
+      echo "Your guess is Too low. Please try gaian."
+      validate_user_input
+  fi
+
 }
 
-guess_number_of_files
+echo "How many files are available in the current directory? Please guess :"
+
+#Called the method on script running
+validate_user_input
